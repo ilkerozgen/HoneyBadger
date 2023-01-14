@@ -1,0 +1,76 @@
+%option yylineno
+esc_seq \\[0\"\'\\nt]
+space [ \t]
+%%
+\/\/.*                       return(EOL_COMMENT);
+\,                           return(COMMA);
+\;                           return(SC);
+"int"                        return(INT_TYPE);
+"float"                      return(FLOAT_TYPE);
+"char"                       return(CHAR_TYPE);
+"string"                     return(STRING_TYPE);
+"bool"                       return(BOOL_TYPE);
+"if"                         return(IF);
+"else"                       return(ELSE);
+"true"                       return(TRUE);
+"false"                      return(FALSE);
+"while"                      return(WHILE);
+"return"                     return(RETURN);
+"break"                      return(BREAK);
+"void"                       return(VOID);
+"readTemp"                   return(READ_TEMP);
+"readHumidity"               return(READ_HUM);
+"readAirPressure"            return(READ_AIR_PRESSURE);
+"readAirQuality"             return(READ_AIR_QUALITY);
+"readLight"                  return(READ_LIGHT);
+"readSound"                  return(READ_SOUND);
+"readTimer"                  return(READ_TIMER);
+"setSwitch1"                 return(SET_SWITCH1);
+"setSwitch2"                 return(SET_SWITCH2);
+"setSwitch3"                 return(SET_SWITCH3);
+"setSwitch4"                 return(SET_SWITCH4);
+"setSwitch5"                 return(SET_SWITCH5);
+"setSwitch6"                 return(SET_SWITCH6);
+"setSwitch7"                 return(SET_SWITCH7);
+"setSwitch8"                 return(SET_SWITCH8);
+"setSwitch9"                 return(SET_SWITCH9);
+"setSwitch10"                return(SET_SWITCH10);
+"getSwitch1"                 return(GET_SWITCH1);
+"getSwitch2"                 return(GET_SWITCH2);
+"getSwitch3"                 return(GET_SWITCH3);
+"getSwitch4"                 return(GET_SWITCH4);
+"getSwitch5"                 return(GET_SWITCH5);
+"getSwitch6"                 return(GET_SWITCH6);
+"getSwitch7"                 return(GET_SWITCH7);
+"getSwitch8"                 return(GET_SWITCH8);
+"getSwitch9"                 return(GET_SWITCH9);
+"getSwitch10"                return(GET_SWITCH10);
+"connectURL"                 return(CONNECT_URL);
+"sendInt"                    return(SEND_INT);
+"receiveInt"                 return(RECEIVE_INT);
+\&\&                         return(AND_OP);
+\|\|                         return(OR_OP);
+\=\=                         return(EQ);
+\!\=                         return(NEQ);
+\<                           return(LT);
+\<\=                         return(LTE);
+\>                           return(GT);
+\>\=                         return(GTE);
+\(                           return(LP);
+\)                           return(RP);
+\{                           return(LCB);
+\}                           return(RCB);
+\=                           return(ASSIGN_OP);
+\+                           return(PLU_OP);
+\-                           return(MIN_OP);
+\*                           return(MUL_OP);
+\/                           return(DIV_OP);
+\'({esc_seq}|[^'\\])\'       return(CHAR );
+[+-]?[0-9]+                  return(INT );
+[+-]?[0-9]*[.][0-9]+         return(FLOAT);
+[a-zA-Z_][a-zA-z0-9_]*       return(IDENTIFIER);
+$[a-zA-Z_][a-zA-z0-9_]*	     return(LOGIC_IDENTIFIER);
+\"[^\"]*\"                   return(STRING);
+[ \t\n]	 ;
+%%
+int yywrap() {return 1;}
